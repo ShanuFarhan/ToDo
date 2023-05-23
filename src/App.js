@@ -1,54 +1,23 @@
 import React from 'react'
-import {useState} from 'react'
-import './App.css' 
+import Navbar from './Components/Navbar/navbar'
+import "./App.css"
+import {originals,action, comedy, horror, romance, documentary} from './urls'
+import Banner from './Components/Banner/Banner'
+import RawPost from './Components/RawPost/Rawpost'
 function App() {
-  const [toDos,setToDos]=useState([])
-  const [toDo,setToDo]=useState(' ')
-
   return (
-    <div className="app">
-      <div className="mainHeading">
-        <h1>ToDo List</h1>
-      </div>
-      <div className="subHeading">
-        <br />
-        <h2>Whoop, it's Wednesday 🌝 ☕ </h2>
-      </div>
-      <div className="input">
-        <input value={toDo} onChange={(e)=>setToDo(e.target.value)} type="text" placeholder="🖊️ Add item..." />
-        <i onClick={()=>setToDos([...toDos,{id:Date.now(),text: toDo,status:false}])} className="fas fa-plus"></i>
-      </div>
-      <div className="todos">
-        {
-         toDos.map((value)=>{
-          return( <div className="todo">
-          <div className="left">
-            <input onChange={(e)=>{
-              setToDos(toDos.filter(value2=>{
-                if(value2.id===value.id){
-                  value2.status=e.target.checked
-                }
-                return value2
-              }))
-            }}
-            value={value.status} type="checkbox" name="" id="" />
-            <p>{value.text}</p>
-          </div>
-          <div className="right">
-            <i className="fas fa-times"></i>
-          </div>
-        </div>)
-        })}
-        {toDos.map((value)=>{
-          if(value.status){
-            return(<h1>{value.text}</h1>)
-          }
-          return null
-        })}
-      </div>
+    <div className='App'>
+          <Navbar/>
+          <Banner/>
+          <RawPost url={originals} title='Netflix Originals'/>
+          <RawPost url={action} title='Action' isSmall/>
+          <RawPost url={comedy} title='Comedy' isSmall/>
+          <RawPost url={horror} title='Horror' isSmall/>
+          <RawPost url={romance} title='Romance' isSmall/>
+          <RawPost url={documentary} title='Documentaries' isSmall/>
+
     </div>
-  );
+  )
 }
-  
 
 export default App
